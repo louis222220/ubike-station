@@ -1,0 +1,21 @@
+language: python
+
+python:
+  - "3.7"
+
+install:
+  - pip install pipenv==2018.7.1
+  - pipenv install 
+  - pipenv install --dev
+    #--ignore-pipfile?
+
+script:
+  - pytest
+
+deploy:
+  provider: heroku
+  api_key:
+    secure: qyuFZha61clOkqpNL9+W+/7dFv7ZC+0DZUIk7CCrPHcjeWexqdCPOGcTYEm+9MP6eg9PMkF7k1wQOpkynjU9hMNe3cKmtfgoXgivqZDGZM8M+Tk/DqtYwmsvdVGLXvKfZ/hh/RWE9U7B/vX8MeyaOovmGLyQpE6+2E6jjJvyhdZq2Y0FAfIKh3vQYEP+6qvlq1BXpCmMbi2duefhkhNDKuOLita/GD9MKMpfTFfbokGp4/oQvBcw4qDEmPLEMiv0xE7mlPSXXMJ+y0/7v07e8nmJ8gUiQP/BKFL77OAUltx2azy/7x/5mfIctl81+BjOmQYPUNCc44+4rurhBp/807b0lmQzuXmuQoyX3Q6x8TR/G7vsHnxRqCWvOXvwxJZu5JwhE0fICZcK+GxtLhB9jUAWPGVPwZMyrg5JWhtlmL2Cu4kO6XHtzX4LBNLwNZCQLcbRmt0iLMP49ZXa38St7WGdeXajtmoaTPqaFXlCUf/DzxwFpsZ2ICgCNP6BCrEapJ+4sZ/yLVRphLC5HfUxKu4nXY1x1EUztqWjNMvadIkmHJQLeK+caZOIEKJpjSGTRFufReHeFqHOvexoN7EwDZBvOlmUSLKLIFIKGUgisq8cudVJhhNTvKK4w7uxV8Lw3kIt/1J0VrVIBXuQaOIxOJkCtbwLZHuoeyBtF2xKmoE=
+  app: sheltered-mesa-77809
+  on:
+    repo: louis222220/ubike-station
