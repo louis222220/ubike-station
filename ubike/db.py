@@ -1,62 +1,32 @@
 import sqlite3
-
 import click
 from flask import current_app, g
 from flask.cli import with_appcontext
 
 
-def init_app(app):
-    app.teardown_appcontext(close_db)
-    app.cli.add_command(init_db_command)
+class SQLite3Database:
+    def __init__(self):
+        self.db = None
 
-def get_db():
-    if 'db' not in g:
-        g.db = sqlite3.connect(
-            current_app.config['DATABASE'],
-            detect_types=sqlite3.PARSE_DECLTYPES
+    def init_app(self, app):
+        # app.teardown_appcontext(close_db)
+        app.cli.add_command(self.init_db_command)
+        self.db = sqlite3.connect(
+            app.config['DATABASE'],
+            detect_types=sqlite3.PARSE_DECLTYPES,
+            check_same_thread=False
         )
-        g.db.row_factory = sqlite3.Row
+        self.db.row_factory = sqlite3.Row
 
-    return g.db
+    def init_db(self):
+        with current_app.open_resource('schema.sql') as f:
+            self.db.executescript(f.read().decode('utf8'))
 
+    @click.command('init-db')
+    @with_appcontext
+    def init_db_command(self):
+        """Clear the existing data, create new tables and get stations data from ubike api."""
+        self.init_db()
+        click.echo('Initialized the database.')
 
-def close_db(e=None):
-    db = g.pop('db', None)
-
-    if db is not None:
-        db.close()
-
-
-def init_db():
-    db = get_db()
-
-    with current_app.open_resource('schema.sql') as f:
-        db.executescript(f.read().decode('utf8'))
-    
-    init_db_stations()
-    
-
-def init_db_stations():
-    db = get_db()
-
-    import json
-    from .station import getUbikeJson
-    
-    stationData = getUbikeJson()
-    for key in stationData["retVal"].keys():
-        db.execute(
-            'INSERT INTO stations (stationNo)'
-            ' VALUES (?)',
-            (key, )
-        )
-    db.commit()
-
-
-
-
-@click.command('init-db')
-@with_appcontext
-def init_db_command():
-    """Clear the existing data, create new tables and get stations data from ubike api."""
-    init_db()
-    click.echo('Initialized the database.')
+sqlite = SQLite3Database()
