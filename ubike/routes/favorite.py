@@ -1,69 +1,61 @@
 import functools
 
-from flask import (
-    Blueprint, flash, g, redirect, request, session, url_for
-)
+from flask import Blueprint, jsonify
 from werkzeug.exceptions import abort
 import json
 
-from .db import get_db
-from .station import isStation
+from ubike.db import sqlite
+from ubike.modules.station import is_station
 
 bp = Blueprint('favorite', __name__, url_prefix='/favorite')
 
+
 @bp.route('/')
 def index():
-    db = get_db()
-
-    favoriteStationRows = db.execute(
+    favorite_station_rows = sqlite.db.execute(
         'SELECT stationNo FROM favoriteStation'
         ' ORDER BY stationNo ASC'
     ).fetchall()
 
-    favoriteStations = [ row[0] for row in favoriteStationRows]
-    jsonFavoriteStations = { "favoriteStations": favoriteStations }
-    return json.dumps( jsonFavoriteStations )
+    favorite_stations = [row['stationNo'] for row in favorite_station_rows]
+    return jsonify({"favorite_stations": favorite_stations})
 
 
 @bp.route('/insert/<int:stationNo>')
 def insertFavoriteStation(stationNo):
-    if not isStation(stationNo):
+    if not is_station(stationNo):
         return "station {} doesn't exist" . format(stationNo)
     else:
-        db = get_db()
-
-        if db.execute(
+        if sqlite.db.execute(
             'SELECT * FROM favoriteStation WHERE stationNo = ?',
             (stationNo, )
         ).fetchone() is not None:
             return "station {} already in table" . format(stationNo)
 
-        db.execute(
+        sqlite.db.execute(
             'INSERT INTO favoriteStation (stationNo)'
             ' VALUES (?)',
             (stationNo, )
         )
-        db.commit()
+        sqlite.db.commit()
         return "success in inserting"
-        
+
 
 @bp.route('/delete/<int:stationNo>')
 def deleteFavoriteStation(stationNo):
-    if not isStation(stationNo):
+    if not is_station(stationNo):
         return "station {} doesn't exist" . format(stationNo)
     else:
-        db = get_db()
-
-        if db.execute(
+        if sqlite.db.execute(
             'SELECT * FROM favoriteStation WHERE stationNo = ?',
             (stationNo, )
         ).fetchone() is None:
             return "station {} is not in table" . format(stationNo)
 
-        db.execute(
+        sqlite.db.execute(
             'DELETE FROM favoriteStation'
             ' WHERE stationNo = ?',
             (stationNo, )
         )
-        db.commit()
+        sqlite.db.commit()
         return "success in deleting"
