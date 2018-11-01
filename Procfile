@@ -1,1 +1,1 @@
-web: gunicorn app_run:app
+web: gunicorn 'ubike:create_app("production")'

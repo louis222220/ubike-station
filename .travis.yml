@@ -7,11 +7,10 @@ matrix:
       sudo: true
 
 install:
-  - pip install --upgrade pip==18.0
+  - pip install --upgrade pip==18.0 #there is bug with pip 18.1 and pipenv
   - pip install pipenv==2018.7.1
   - pipenv install 
   - pipenv install --dev
-    #--ignore-pipfile?
 
 script:
   - true
