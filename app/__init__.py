@@ -1,9 +1,8 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 
-# from .routes import station
+from .routes import station
 # from .routes import favorite
-# from .modules.station import init_stations
 from .routes import hello
 from config import config
 
@@ -18,7 +17,10 @@ def create_app(config_name):
 
     db.init_app(app)
 
-    # init_stations()
+    @app.before_first_request
+    def before_first_request():
+        from .modules.station import check_init_stations
+        check_init_stations()
 
     # app.register_blueprint(station.bp)
     # app.register_blueprint(favorite.bp)
