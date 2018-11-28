@@ -18,8 +18,10 @@ class DevelopmentConfig(Config):
 
 class TestingConfig(Config):
     TESTING = True
+    import tempfile
+    tempDB = tempfile.NamedTemporaryFile()
     SQLALCHEMY_DATABASE_URI = os.environ.get('TEST_DATABASE_URL') or \
-        'sqlite://'
+        'sqlite:///' + tempDB.name
 
 
 class ProductionConfig(Config):

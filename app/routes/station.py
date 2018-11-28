@@ -10,6 +10,7 @@ def index():
     return jsonify(station.get_ubike_json())
 
 
+# TODO: 404 error json message
 @bp.route('/<int:station_number>')
 def get_by_station_number(station_number):
     if not station.is_station(station_number):

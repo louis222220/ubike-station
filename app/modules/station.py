@@ -8,8 +8,9 @@ UBIKE_TAIPEI_URL = 'https://tcgbusfs.blob.core.windows.net/' \
 
 def get_ubike_json():
     res = requests.get(UBIKE_TAIPEI_URL)
-    if res.status_code == 200:
-        return res.json()
+    station_data = res.json()
+    if res.status_code == 200 and 'retVal' in station_data:
+        return station_data
     return {'error': 'Ubike server no response'}
 
 

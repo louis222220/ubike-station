@@ -11,9 +11,12 @@ requests = "*"
 flask-sqlalchemy = "*"
 flask-migrate = "*"
 flask-script = "*"
+pytest-mock = "*"
 
 [dev-packages]
 pytest = "*"
+pytest-cov = "*"
+pytest-ordering = "*"
 
 [requires]
 python_version = "3.7"
