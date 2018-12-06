@@ -20,7 +20,7 @@ def index():
 
 # TODO: refactor to be cleaner
 @bp.route('/', methods=['POST'])
-def insertFavoriteStation():
+def insert_favorite_station():
     new_station_id = request.json.get('station_id')
 
     if not is_station(new_station_id):
@@ -45,7 +45,7 @@ def insertFavoriteStation():
 
 
 @bp.route('/', methods=['DELETE'])
-def deleteFavoriteStation():
+def delete_favorite_station():
     to_delete_station_id = request.json.get('station_id')
 
     if not is_station(to_delete_station_id):
