@@ -24,6 +24,11 @@ class TestingConfig(Config):
         'sqlite:///' + tempDB.name
 
 
+class StageConfig(Config):
+    SQLALCHEMY_DATABASE_URI = os.environ.get('STAGE_DATABASE_URL') or \
+        'sqlite:///' + os.path.join(basedir, 'data.sqlite')
+
+
 class ProductionConfig(Config):
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or \
         'sqlite:///' + os.path.join(basedir, 'data.sqlite')
@@ -32,6 +37,7 @@ class ProductionConfig(Config):
 config = {
     'development': DevelopmentConfig,
     'testing': TestingConfig,
+    'stage': StageConfig,
     'production': ProductionConfig,
 
     'default': DevelopmentConfig
