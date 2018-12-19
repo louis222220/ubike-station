@@ -18,9 +18,12 @@ def create_app(config_name):
         from .modules.station import check_init_stations
         check_init_stations()
 
-    from .routes import station
-    from .routes import favorite
-    app.register_blueprint(station.bp)
-    app.register_blueprint(favorite.bp)
+    api_url_prefix = '/api/v1'
+    from .api import station
+    from .api import favorite
+    app.register_blueprint(
+        station.bp, url_prefix=api_url_prefix + station.bp.url_prefix)
+    app.register_blueprint(
+        favorite.bp, url_prefix=api_url_prefix + favorite.bp.url_prefix)
 
     return app

@@ -4,6 +4,8 @@ from ..modules import station
 
 bp = Blueprint('station', __name__, url_prefix='/station')
 
+# TODO: auth
+
 
 @bp.route('/')
 def index():
