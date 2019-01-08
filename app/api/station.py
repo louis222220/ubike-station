@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify, request
 from werkzeug.exceptions import abort
-from ..modules import station
+from app.modules import station
 
 bp = Blueprint('station', __name__, url_prefix='/station')
 

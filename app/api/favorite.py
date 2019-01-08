@@ -1,8 +1,8 @@
 from flask import request, Blueprint, jsonify
 from datetime import datetime
-from ..__init__ import db
-from ..models import FavoriteStation
-from ..modules.station import is_station
+from app.__init__ import db
+from app.models import FavoriteStation
+from app.modules.station import is_station
 
 bp = Blueprint('favorite', __name__, url_prefix='/favorite')
 

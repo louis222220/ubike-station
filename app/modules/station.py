@@ -1,6 +1,6 @@
 import requests
-from ..__init__ import db
-from ..models import Station
+from app.__init__ import db
+from app.models import Station
 
 UBIKE_TAIPEI_URL = 'https://tcgbusfs.blob.core.windows.net/' \
                    'blobyoubike/YouBikeTP.gz'

@@ -15,12 +15,12 @@ def create_app(config_name):
 
     @app.before_first_request
     def before_first_request():
-        from .modules.station import check_init_stations
+        from app.modules.station import check_init_stations
         check_init_stations()
 
     api_url_prefix = '/api/v1'
-    from .api import station
-    from .api import favorite
+    from app.api import station
+    from app.api import favorite
     app.register_blueprint(
         station.bp, url_prefix=api_url_prefix + station.bp.url_prefix)
     app.register_blueprint(
