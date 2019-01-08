@@ -7,20 +7,18 @@ matrix:
       sudo: true
 
 install:
-  - pip install --upgrade pip==18.0
+  - pip install --upgrade pip==18.0 #there is bug with pip 18.1 and pipenv
   - pip install pipenv==2018.7.1
   - pipenv install 
   - pipenv install --dev
-    #--ignore-pipfile?
 
 script:
-  - true
-  #- pytest
+  - pytest
 
 deploy:
   provider: heroku
   api_key:
-    secure: qyuFZha61clOkqpNL9+W+/7dFv7ZC+0DZUIk7CCrPHcjeWexqdCPOGcTYEm+9MP6eg9PMkF7k1wQOpkynjU9hMNe3cKmtfgoXgivqZDGZM8M+Tk/DqtYwmsvdVGLXvKfZ/hh/RWE9U7B/vX8MeyaOovmGLyQpE6+2E6jjJvyhdZq2Y0FAfIKh3vQYEP+6qvlq1BXpCmMbi2duefhkhNDKuOLita/GD9MKMpfTFfbokGp4/oQvBcw4qDEmPLEMiv0xE7mlPSXXMJ+y0/7v07e8nmJ8gUiQP/BKFL77OAUltx2azy/7x/5mfIctl81+BjOmQYPUNCc44+4rurhBp/807b0lmQzuXmuQoyX3Q6x8TR/G7vsHnxRqCWvOXvwxJZu5JwhE0fICZcK+GxtLhB9jUAWPGVPwZMyrg5JWhtlmL2Cu4kO6XHtzX4LBNLwNZCQLcbRmt0iLMP49ZXa38St7WGdeXajtmoaTPqaFXlCUf/DzxwFpsZ2ICgCNP6BCrEapJ+4sZ/yLVRphLC5HfUxKu4nXY1x1EUztqWjNMvadIkmHJQLeK+caZOIEKJpjSGTRFufReHeFqHOvexoN7EwDZBvOlmUSLKLIFIKGUgisq8cudVJhhNTvKK4w7uxV8Lw3kIt/1J0VrVIBXuQaOIxOJkCtbwLZHuoeyBtF2xKmoE=
-  app: sheltered-mesa-77809
+    secure: B30/ZKnQaVnjyA+Q9fmsFs9kaGz/GEt8XehBdMzbO/KGqkUONNW830qCBT6J4/5YcOSuJ4tZgzsCQUIbzl9gtpKHxQwxJH5qYz8KLDgR+c0FzMBxKppKsbMvhDW5osYPizy5EeKnz46uuvslKS8mvaH3JxEJlFwSJMudpRqjVmBeaXxYzglwXxYHBvHyEd1RAg00fKaH3GW0KZkGcUyN0fU31A2TzlZm2x9U94xf5EG99Jnc/0YUtkSYBrj3quS24VDaDtAF69eduH7IIy4uOFGdGLhbapdPM3yMmNFdX2eCahoScj06H3TRedzMlbNy19PuIwyNH8p+o3mIkSBd/vnF5yY6G9KblXWOEGd6p+JpIcdV7UY337JaY2jgzu0b9BA+UwZPcPFDowzLDvufo0duLhlWyabVavdfrynNtwyvWib0Dhc2Idgz9ndI80AePONUB38VnDeMxWKTeruq/5KNO0MGCSEj7VlcPNk6LKvHFZVktmHYadWu/KESW22UMcgxGhLCQGjhG5PZfiSEDny6Yr/M1LMEii0jArfuSAPKEINSG8Tl/SgcQSej9WvPwmir9ORnpzK6AeTWyxhLsCkgfNgtuWnaPPCCsn4z5ml0kodiO1IazLMR3fxSvy2kmITPdVyPvowKkfP6bUWmOd39D0lHpF60RKkO48UWw0A=
+  app: ubike-station
   on:
     repo: louis222220/ubike-station
